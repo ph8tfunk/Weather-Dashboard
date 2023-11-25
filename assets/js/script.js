@@ -1,6 +1,9 @@
 const api_key = "5715a2e70d43f5204093386ab1b8f071";
 
 var searchInput = $('#search-input');
+var listGroup = $('#history');
+var listElm = $('<ul>');
+
 
 var latitude;
 var longitude;
@@ -9,6 +12,7 @@ $('#search-button').on('click', function(event){
     event.preventDefault();
     var search = searchInput.val();
     getGeolocation(search);
+    searchHistory(search);
 });
 
 function getGeolocation(city){
@@ -43,8 +47,16 @@ function getForecast(lon, lat){
             console.log("Humidity: " + data.list[0].main.humidity);
         })
 
-
 }
 
+function searchHistory(city){
+
+    var listItem = $('<li>')
+    var btn = $('<button>').text(city);
+    listItem.append(btn);
+    listElm.append(listItem);
+    listGroup.append(listElm);
+
+}
 
 
