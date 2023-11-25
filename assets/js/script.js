@@ -4,6 +4,8 @@ var searchInput = $('#search-input');
 var listGroup = $('#history');
 var listElm = $('<ul>');
 
+var todayForecast = $('#today');
+
 
 var latitude;
 var longitude;
@@ -27,14 +29,14 @@ function getGeolocation(city){
         .then(function(data){
             longitude = data[0].lon;
             latitude = data[0].lat;
-            getForecast(longitude,longitude);
+            getForecast(longitude,longitude,city);
         })
 
  }
 
-function getForecast(lon, lat){
+function getForecast(lon, lat, place){
 
-    var forecast_URL = "http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+api_key;
+    var forecast_URL = "http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+api_key+"&units=metric";
 
     fetch(forecast_URL)
         .then(function(response){
@@ -42,6 +44,8 @@ function getForecast(lon, lat){
         })
         .then(function(data){
             console.log(data);
+            var headerElm = $("<h2>").text(place);
+            todayForecast.append(headerElm);
             console.log("Temp: " + data.list[0].main.temp);
             console.log("wind: " + data.list[0].wind.speed);
             console.log("Humidity: " + data.list[0].main.humidity);
