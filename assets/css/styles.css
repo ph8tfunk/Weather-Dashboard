@@ -1,3 +1,13 @@
 #today{
     border: solid;
 }
+
+.input-group, .input-group-append{
+    margin:auto;
+    padding: 5px;
+    width:100%;
+}
+
+#search-button{
+    background-color: aquamarine;
+}

@@ -3,9 +3,11 @@ const api_key = "5715a2e70d43f5204093386ab1b8f071";
 var searchInput = $('#search-input');
 var listGroup = $('#history');
 var listElm = $('<ul>');
+var forcastPanel = $('#forecast');
 
 var todayForecast = $('#today');
 var today;
+var fiveDays = [];
 var todayDate = dayjs().format('DD/MM/YYYY');
 
 
@@ -15,8 +17,10 @@ var longitude;
 $('#search-button').on('click', function(event){
     event.preventDefault();
     var search = searchInput.val();
-    getGeolocation(search);
-    searchHistory(search);
+        if (search != ""){
+        getGeolocation(search);
+        searchHistory(search);
+    }
 });
 
 function getGeolocation(city){
@@ -54,6 +58,20 @@ function getForecast(lon, lat){
                 humidity: data.list[0].main.humidity,
                 icon: data.list[0].weather[0].icon
             }
+
+            for ( i = 4; i< data.list.length; i+=8) {
+            //5 days with 3 hours changes
+
+            nextday = {
+                temp: data.list[i].main.temp,
+                wind: data.list[i].wind.speed,
+                humidity: data.list[i].main.humidity,
+                icon: data.list[i].weather[0].icon
+            }
+
+            fiveDays.push(nextday);
+            }
+            console.log(fiveDays);
             forcastToday(today);
         })
 
