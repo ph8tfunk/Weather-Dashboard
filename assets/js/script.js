@@ -43,7 +43,7 @@ function getGeolocation(city){
 
 function getForecast(lon, lat){
 
-    var forecast_URL = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+api_key;
+    var forecast_URL = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+api_key+"&units=metric";
 
     fetch(forecast_URL)
         .then(function(response){
@@ -71,8 +71,8 @@ function getForecast(lon, lat){
 
             fiveDays.push(nextday);
             }
-            console.log(fiveDays);
             forcastToday(today);
+            fivedayForecast();
         })
 
 }
@@ -89,6 +89,8 @@ function searchHistory(city){
 
 function forcastToday(today){
 
+    //todayForecast.clear();
+    //var todayForecast = $('#today');
     var headerElm = $("<h2>").text(today.city + " (" +todayDate + ")");
     var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + today.icon+ "@2x.png");
     headerElm.append(iconElm);
@@ -97,6 +99,30 @@ function forcastToday(today){
     var wind = $("<p>").text("Wind: " + today.wind + "m/s");
     var humidity = $("<p>").text("Humidity: " + today.humidity + "%");
     todayForecast.append(temp,wind,humidity);
+}
 
+function fivedayForecast(){
+
+    var title = $("<h3>").text("5-Day Forecast:")
+    forcastPanel.append(title);
+    console.log(fiveDays);
+    for (let i = 0; i < fiveDays.length; i++) {
+            
+        var card = $("<div>").attr('class',"card style=width: 18rem;");
+        var cardbody = $("<div>").attr('class',"card-body");
+
+        var pElm = $("<p>").text(todayDate);
+        var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + fiveDays[i].icon+ "@2x.png");
+        cardbody.append(pElm);
+        cardbody.append(iconElm);
+        
+        var temp = $("<p>").text("Temp: " + fiveDays[i].temp + "°C");
+        var wind = $("<p>").text("Wind: " + fiveDays[i].wind + "m/s");
+        var humidity = $("<p>").text("Humidity: " + fiveDays[i].humidity + "%");
+        cardbody.append(temp,wind,humidity);
+    
+        card.append(cardbody);
+    forcastPanel.append(card);
+    }
 
 }
