@@ -112,7 +112,7 @@ function fivedayForecast(){
         var cardbody = $("<div>").attr('class',"card-body");
 
         var pElm = $("<p>").text(todayDate);
-        var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + fiveDays[i].icon+ "@2x.png");
+        var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + fiveDays[i].icon+ ".png");
         cardbody.append(pElm);
         cardbody.append(iconElm);
         
