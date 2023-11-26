@@ -2,7 +2,6 @@ const api_key = "5715a2e70d43f5204093386ab1b8f071";
 
 var searchInput = $('#search-input');
 var listGroup = $('#history');
-var listElm = $('<ul>');
 var forcastPanel = $('#forecast');
 
 var todayForecast = $('#today');
@@ -79,11 +78,8 @@ function getForecast(lon, lat){
 
 function searchHistory(city){
 
-    var listItem = $('<li>')
     var btn = $('<button>').text(city);
-    listItem.append(btn);
-    listElm.append(listItem);
-    listGroup.append(listElm);
+    listGroup.append(btn);
 
 }
 
@@ -108,7 +104,7 @@ function fivedayForecast(){
     console.log(fiveDays);
     for (let i = 0; i < fiveDays.length; i++) {
             
-        var card = $("<div>").attr('class',"card style=width: 18rem;");
+        var card = $("<div>").attr('class',"card style=width: 20%;");
         var cardbody = $("<div>").attr('class',"card-body");
 
         var pElm = $("<p>").text(todayDate);

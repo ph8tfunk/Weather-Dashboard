@@ -3,9 +3,12 @@
 }
 
 .input-group, .input-group-append{
-    margin:auto;
     padding: 5px;
-    width:100%;
+    display: block;
+}
+
+#search-button, button{
+    padding: 5px;
 }
 
 #search-button{
@@ -14,4 +17,7 @@
 
 .card{
     margin: 5px;
+    width: 200px;
+    padding: 5px;
+    
 }
