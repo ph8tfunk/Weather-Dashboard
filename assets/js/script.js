@@ -6,6 +6,7 @@ var listElm = $('<ul>');
 
 var todayForecast = $('#today');
 var today;
+var todayDate = dayjs().format('DD/MM/YYYY');
 
 
 var latitude;
@@ -69,11 +70,11 @@ function searchHistory(city){
 
 function forcastToday(today){
 
-    var headerElm = $("<h2>").text(today.city);
+    var headerElm = $("<h2>").text(today.city + " (" +todayDate + ")");
     todayForecast.append(headerElm);
-    var temp = $("<p>").text("Temp: " + today.temp);
-    var wind = $("<p>").text("Wind: " + today.wind);
-    var humidity = $("<p>").text("Humidity: " + today.humidity);
+    var temp = $("<p>").text("Temp: " + today.temp + "°C");
+    var wind = $("<p>").text("Wind: " + today.wind + "m/s");
+    var humidity = $("<p>").text("Humidity: " + today.humidity + "%");
     todayForecast.append(temp,wind,humidity);
 
 
