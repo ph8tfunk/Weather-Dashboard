@@ -5,6 +5,7 @@ var listGroup = $('#history');
 var listElm = $('<ul>');
 
 var todayForecast = $('#today');
+var today;
 
 
 var latitude;
@@ -20,23 +21,24 @@ $('#search-button').on('click', function(event){
 function getGeolocation(city){
 
     
-    var geo_URL = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid="+api_key;
+    var geo_URL = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid="+api_key;
 
     fetch(geo_URL)
         .then(function(response){
             return response.json();
         })
         .then(function(data){
+            console.log(data);
             longitude = data[0].lon;
             latitude = data[0].lat;
-            getForecast(longitude,longitude,city);
+            getForecast(longitude,latitude);
         })
 
  }
 
-function getForecast(lon, lat, place){
+function getForecast(lon, lat){
 
-    var forecast_URL = "http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+api_key+"&units=metric";
+    var forecast_URL = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&appid="+api_key;
 
     fetch(forecast_URL)
         .then(function(response){
@@ -44,11 +46,13 @@ function getForecast(lon, lat, place){
         })
         .then(function(data){
             console.log(data);
-            var headerElm = $("<h2>").text(place);
-            todayForecast.append(headerElm);
-            console.log("Temp: " + data.list[0].main.temp);
-            console.log("wind: " + data.list[0].wind.speed);
-            console.log("Humidity: " + data.list[0].main.humidity);
+            today = {
+                city: data.city.name,
+                temp: data.list[0].main.temp,
+                wind: data.list[0].wind.speed,
+                humidity: data.list[0].main.humidity
+            }
+            forcastToday(today);
         })
 
 }
@@ -63,4 +67,14 @@ function searchHistory(city){
 
 }
 
+function forcastToday(today){
 
+    var headerElm = $("<h2>").text(today.city);
+    todayForecast.append(headerElm);
+    var temp = $("<p>").text("Temp: " + today.temp);
+    var wind = $("<p>").text("Wind: " + today.wind);
+    var humidity = $("<p>").text("Humidity: " + today.humidity);
+    todayForecast.append(temp,wind,humidity);
+
+
+}
