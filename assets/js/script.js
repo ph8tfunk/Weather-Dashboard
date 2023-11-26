@@ -51,7 +51,8 @@ function getForecast(lon, lat){
                 city: data.city.name,
                 temp: data.list[0].main.temp,
                 wind: data.list[0].wind.speed,
-                humidity: data.list[0].main.humidity
+                humidity: data.list[0].main.humidity,
+                icon: data.list[0].weather[0].icon
             }
             forcastToday(today);
         })
@@ -71,6 +72,8 @@ function searchHistory(city){
 function forcastToday(today){
 
     var headerElm = $("<h2>").text(today.city + " (" +todayDate + ")");
+    var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + today.icon+ "@2x.png");
+    headerElm.append(iconElm);
     todayForecast.append(headerElm);
     var temp = $("<p>").text("Temp: " + today.temp + "°C");
     var wind = $("<p>").text("Wind: " + today.wind + "m/s");
