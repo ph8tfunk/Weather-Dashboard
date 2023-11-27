@@ -5,10 +5,20 @@
 .input-group, .input-group-append{
     padding: 5px;
     display: block;
+    /* display: block; */
+    
 }
+ /* #search-button{
+    flex:1;
+} 
+
+.form-group{
+    display: flexbox;
+}  */
 
 #search-button, button{
     padding: 5px;
+    margin-top: 10px;
 }
 
 #search-button{

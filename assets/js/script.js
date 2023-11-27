@@ -6,7 +6,6 @@ var forcastPanel = $('#forecast');
 
 var todayForecast = $('#today');
 var today;
-var fiveDays = [];
 var todayDate = dayjs().format('DD/MM/YYYY');
 
 
@@ -58,20 +57,23 @@ function getForecast(lon, lat){
                 icon: data.list[0].weather[0].icon
             }
 
+            var fiveDays = [];
+
             for ( i = 4; i< data.list.length; i+=8) {
             //5 days with 3 hours changes
 
-            nextday = {
-                temp: data.list[i].main.temp,
-                wind: data.list[i].wind.speed,
-                humidity: data.list[i].main.humidity,
-                icon: data.list[i].weather[0].icon
-            }
+                nextday = {
+                    temp: data.list[i].main.temp,
+                    wind: data.list[i].wind.speed,
+                    humidity: data.list[i].main.humidity,
+                    icon: data.list[i].weather[0].icon
+                }
 
             fiveDays.push(nextday);
             }
+
             forcastToday(today);
-            fivedayForecast();
+            fivedayForecast(fiveDays);
         })
 
 }
@@ -85,8 +87,8 @@ function searchHistory(city){
 
 function forcastToday(today){
 
-    //todayForecast.clear();
-    //var todayForecast = $('#today');
+    todayForecast.empty();
+    
     var headerElm = $("<h2>").text(today.city + " (" +todayDate + ")");
     var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + today.icon+ "@2x.png");
     headerElm.append(iconElm);
@@ -97,13 +99,16 @@ function forcastToday(today){
     todayForecast.append(temp,wind,humidity);
 }
 
-function fivedayForecast(){
+function fivedayForecast(fiveDays){
 
+    forcastPanel.empty();
+    console.log("fore" +forcastPanel);
     var title = $("<h3>").text("5-Day Forecast:")
     forcastPanel.append(title);
-    console.log(fiveDays);
+
     for (let i = 0; i < fiveDays.length; i++) {
             
+        console.log(fiveDays.length);
         var card = $("<div>").attr('class',"card style=width: 20%;");
         var cardbody = $("<div>").attr('class',"card-body");
 
@@ -118,6 +123,7 @@ function fivedayForecast(){
         cardbody.append(temp,wind,humidity);
     
         card.append(cardbody);
+        
     forcastPanel.append(card);
     }
 
