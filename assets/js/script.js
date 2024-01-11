@@ -10,6 +10,7 @@ var todayDate = dayjs().format('DD/MM/YYYY');
 
 var latitude;
 var longitude;
+citylist = [];
 
 $('#search-button').on('click', function(event){
     event.preventDefault();
@@ -80,20 +81,30 @@ function getForecast(lon, lat){
 function searchHistory(city){
 
     //if exists in history dont add
+    citylist = getSearchHistory();
+    if (!citylist.includes(city)){
     var btn = $('<button>').text(city);
     listGroup.append(btn);
-
-    localStorage.setItem("SearchHistory", city);
+    citylist.push(city);
+    localStorage.setItem("SearchHistory", JSON.stringify(citylist));
+    }
 
 }
 
 function getSearchHistory(){
-    localStorage.getItem("SearchHistory");
-
-    var btn = $('<button>').text(city);
-    listGroup.append(btn);
-
+    return JSON.parse(localStorage.getItem("SearchHistory"));
 }
+
+Array.map
+
+function loadHistory(){
+    
+    searchlist = getSearchHistory();
+    searchlist.map( (item) => {
+        var btn = $('<button>').text(item);
+        listGroup.append(btn);
+    });
+    }
 
 function forcastToday(today){
 
@@ -138,3 +149,10 @@ function fivedayForecast(fiveDays){
     }
 
 }
+
+loadHistory();
+
+listGroup.on('click',function(event) {
+    console.log($(event.target).text());
+
+});
