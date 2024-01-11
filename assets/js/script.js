@@ -100,10 +100,15 @@ Array.map
 function loadHistory(){
     
     searchlist = getSearchHistory();
-    searchlist.map( (item) => {
-        var btn = $('<button>').text(item);
-        listGroup.append(btn);
-    });
+
+    if (searchlist == null) {
+        localStorage.setItem("SearchHistory", JSON.stringify(citylist));
+    } else {
+        searchlist.map( (item) => {
+            var btn = $('<button>').text(item);
+            listGroup.append(btn);
+        });
+    }
     }
 
 function forcastToday(today){
