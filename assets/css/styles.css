@@ -8,13 +8,9 @@
     /* display: block; */
     
 }
- /* #search-button{
-    flex:1;
+ #search-button, .weather-search{
+    width:100%;
 } 
-
-.form-group{
-    display: flexbox;
-}  */
 
 #search-button, button{
     padding: 5px;
@@ -28,6 +24,9 @@
 .card{
     margin: 5px;
     width: 200px;
-    padding: 5px;
-    
+    padding: 5px;   
+}
+
+h2, p {
+    padding:15px;
 }

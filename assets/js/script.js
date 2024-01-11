@@ -8,7 +8,6 @@ var todayForecast = $('#today');
 var today;
 var todayDate = dayjs().format('DD/MM/YYYY');
 
-
 var latitude;
 var longitude;
 
@@ -61,8 +60,8 @@ function getForecast(lon, lat){
 
             for ( i = 4; i< data.list.length; i+=8) {
             //5 days with 3 hours changes
-
                 nextday = {
+                    date: dayjs(data.list[i].dt_txt).format('DD/MM/YYYY'),
                     temp: data.list[i].main.temp,
                     wind: data.list[i].wind.speed,
                     humidity: data.list[i].main.humidity,
@@ -79,6 +78,17 @@ function getForecast(lon, lat){
 }
 
 function searchHistory(city){
+
+    //if exists in history dont add
+    var btn = $('<button>').text(city);
+    listGroup.append(btn);
+
+    localStorage.setItem("SearchHistory", city);
+
+}
+
+function getSearchHistory(){
+    localStorage.getItem("SearchHistory");
 
     var btn = $('<button>').text(city);
     listGroup.append(btn);
@@ -112,7 +122,7 @@ function fivedayForecast(fiveDays){
         var card = $("<div>").attr('class',"card style=width: 20%;");
         var cardbody = $("<div>").attr('class',"card-body");
 
-        var pElm = $("<p>").text(todayDate);
+        var pElm = $("<p>").text(fiveDays[i].date);
         var iconElm = $('<img>').attr('src',"https://openweathermap.org/img/wn/" + fiveDays[i].icon+ ".png");
         cardbody.append(pElm);
         cardbody.append(iconElm);
