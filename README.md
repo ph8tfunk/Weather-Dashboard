@@ -5,9 +5,10 @@ Module 8 Challenge of the edX bootcamp
 Weather Dashboard using third party API. 
 
 ## Screenshot
+
 <img src="assets/img/Screenshot.jpg" />
 
-<a href="https://ph8tfunk.github.io/Weather-Dashboard/" />
+<a href="https://ph8tfunk.github.io/Weather-Dashboard/" > Weather Dashboard </a>
 
 ## Installation
 N/A
