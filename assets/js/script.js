@@ -153,6 +153,6 @@ function fivedayForecast(fiveDays){
 loadHistory();
 
 listGroup.on('click',function(event) {
-    console.log($(event.target).text());
+    getGeolocation($(event.target).text());
 
 });
